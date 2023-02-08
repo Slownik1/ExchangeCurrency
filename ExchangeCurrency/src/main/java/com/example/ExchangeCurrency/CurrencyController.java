@@ -4,7 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -16,6 +18,7 @@ public class CurrencyController {
         this.currencyService = currencyService;
     }
     public List<WebDTO> history = new ArrayList<WebDTO>();
+    LocalDate today = LocalDate.now();
 
     @GetMapping("/index")
     public String Index(Model model){
@@ -28,7 +31,15 @@ public class CurrencyController {
     public String getRatio(@ModelAttribute WebDTO webDTO){
         Float ratio = currencyService.getReatio(webDTO.getCurency(), webDTO.getAmount(), webDTO.getDate());
         webDTO.setAmountInZloty(ratio);
+
+        if(webDTO.getDate()=="")
+            webDTO.setDate(today.toString());
+
         history.add(webDTO);
+        Collections.reverse(history);
+        if(history.size()>5
+        )
+            history.remove(history.size()- history.size()+1);
         return "redirect:/index";
     }
 

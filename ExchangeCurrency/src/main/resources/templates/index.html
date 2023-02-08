@@ -7,31 +7,37 @@
 
 </head>
 
+
 <body>
 
 <form action="#" th:action="@{/ratio}" th:object="${webDTO}" method="post">
 
-    <input type="number" name="amount" th:field="*{amount}" placeholder="CURRENCY">
+    <input type="number" name="amount" th:field="*{amount}" placeholder="CURRENCY"  min="1">
     <select name="curency" th:field="*{curency}">
         <option th:value="EUR">EUR</option>
         <option th:value="USD">USD</option>
         <option th:value="CZK">CZK</option>
     </select>
-    <input type="date" name="date" th:field="*{date}" placeholder="yyyy-dd-mm">
+    <input type="date" id="datePicker" name="date" th:field="*{date}" placeholder="yyyy-dd-mm">
     <input type="submit" value="CALCULATE">
     <input type="reset" value="CLEAR">
-    <input type="number" name="amount" placeholder="ZLOTY" readonly>
 
 </form>
+<table>
+    <tr>
+        <th>DATE</th>
+        <th>CURENCY</th>
+        <th>AMOUNT</th>
+        <th>ZLOTY</th>
+    </tr>
+    <tr th:each="webDTO:${history}">
 
-<tr th:each="webDTO:${history}">
-
-    <td th:text="${webDTO.getDate()}"/>
-    <td th:text="${webDTO.getCurency()}"/>
-    <td th:text="${webDTO.getAmount()}"/>
-    <td th:text="${webDTO.getAmountInZloty()}"/>
-<br>
-</tr>
+        <td th:text="${webDTO.getDate()}"/>
+        <td th:text="${webDTO.getCurency()}"/>
+        <td th:text="${webDTO.getAmount()}"/>
+        <td th:text="${webDTO.getAmountInZloty()}"/>
+    </tr>
+</table>
 
 
 </body>
