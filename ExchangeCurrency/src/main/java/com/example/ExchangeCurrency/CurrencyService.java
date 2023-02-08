@@ -11,8 +11,8 @@ public class CurrencyService {
 
     public final HTTPConnection httpConnection;
 
-    public float getReatio(String currency, float ammount){
-        return httpConnection.getReatio(currency, ammount);
+    public float getReatio(String currency, float amount, String date){
+        return httpConnection.getReatio(currency, amount, date);
     }
 
 }
