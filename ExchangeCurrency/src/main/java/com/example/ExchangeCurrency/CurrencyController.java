@@ -29,17 +29,18 @@ public class CurrencyController {
 
     @PostMapping("/ratio")
     public String getRatio(@ModelAttribute WebDTO webDTO){
-        Float ratio = currencyService.getReatio(webDTO.getCurency(), webDTO.getAmount(), webDTO.getDate());
-        webDTO.setAmountInZloty(ratio);
 
         if(webDTO.getDate()=="")
             webDTO.setDate(today.toString());
 
+        Float ratio = currencyService.getReatio(webDTO.getCurency(), webDTO.getAmount(), webDTO.getDate());
+        webDTO.setAmountInZloty(ratio);
+
         history.add(webDTO);
         Collections.reverse(history);
-        if(history.size()>5
-        )
+        if(history.size()>10)
             history.remove(history.size()- history.size()+1);
+
         return "redirect:/index";
     }
 

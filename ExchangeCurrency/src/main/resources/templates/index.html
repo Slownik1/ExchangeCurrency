@@ -12,7 +12,7 @@
 
 <form action="#" th:action="@{/ratio}" th:object="${webDTO}" method="post">
 
-    <input type="number" name="amount" th:field="*{amount}" placeholder="CURRENCY"  min="1">
+    <input type="number" step="any" name="amount" th:field="*{amount}" placeholder="AMOUNT IN FOREGIN  CURENCY"  min="0">
     <select name="curency" th:field="*{curency}">
         <option th:value="EUR">EUR</option>
         <option th:value="USD">USD</option>
